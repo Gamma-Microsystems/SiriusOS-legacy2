@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="img/sirius.png">
+  <img src="https://gamma63.w10.site/progressnet/img/sirius.png">
   <h1>SiriusOS</h1>
 </div>
 
