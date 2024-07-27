@@ -1,3 +1,8 @@
 *.bin
 *.o
 *.iso
+dist/
+ports-build/
+*.0
+*.c32
+SiriusOS

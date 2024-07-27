@@ -1,4 +1,4 @@
-#include <kputs.h>
+#include <kprintf.h>
 #include <clear.h>
 #include <colors.h>
 
