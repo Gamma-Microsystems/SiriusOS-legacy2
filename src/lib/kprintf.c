@@ -1,4 +1,5 @@
-#include "kprintf.h"
+#include <kprintf.h>
+#include "../libc/include/stdio.h"
 
 const static size_t NUM_COLS = 80;
 const static size_t NUM_ROWS = 25;
