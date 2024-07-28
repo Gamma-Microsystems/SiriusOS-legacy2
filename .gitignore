@@ -3,10 +3,4 @@
 *.iso
 dist/
 meta/ports-build/
-*.0
-*.c32
-SiriusOS
-iso_root/
-*/bin
-*/debug
-*/obj
+*/drive

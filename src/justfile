@@ -1,1 +1,18 @@
-# Under Construction....
+multiboot1_i686 := "arch/i686/boot.s"
+mtultiboot1_i686_obj := "boot.o"
+
+kernel := "sys/main.c"
+kernel_bin := "sirius.bin"
+
+disk_image_dir := "drive"
+
+header:
+  # unfinished
+
+kernel:
+  # unfinished
+
+build: header kernel
+
+clean:
+    # unfinished
