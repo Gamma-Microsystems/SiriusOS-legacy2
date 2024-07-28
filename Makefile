@@ -1,6 +1,6 @@
 ARCH = x86_64
-CC = $(ARCH)-sirius-gcc
-LD = $(ARCH)-sirius-ld
+CC = $(ARCH)-elf-gcc
+LD = $(ARCH)-elf-ld
 AS = nasm
 
 kernel_source_files := $(shell find src/ -name *.c)
