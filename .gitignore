@@ -7,3 +7,6 @@ meta/ports-build/
 *.c32
 SiriusOS
 iso_root/
+*/bin
+*/debug
+*/obj
