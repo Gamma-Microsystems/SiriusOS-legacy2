@@ -4,7 +4,7 @@
 #include <video/vga/colors.h>
 #include <video/vga/eyes.h>
 #include <compile/stop.h>
-#include <video/tty/tty.h>z
+#include <video/tty/tty.h>
 
 void kmain(void) 
 {
