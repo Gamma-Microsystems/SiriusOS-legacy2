@@ -1,13 +1,18 @@
 multiboot1_i686 := "arch/i686/boot.s"
 mtultiboot1_i686_obj := "boot.o"
-
 kernel := "sys/main.c"
 kernel_bin := "sirius.bin"
 
 disk_image_dir := "drive"
 
+ARCH := "i686"
+TRIPLET := "elf"
+LD := "{{ARCH}}-{{TRIPLET}}-ld"
+CC := "{{ARCH}}-{{TRIPLET}}-gcc"
+AS := "{{ARCH}}-{{TRIPLET}}-as"
+
 header:
-  # unfinished
+  {{AS}} arch/i686/boot.s -o obj/boot.o
 
 kernel:
   # unfinished
