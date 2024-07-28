@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2006-2007 -  http://brynet.biz.tm - <brynet@gmail.com>
+ * Copyright (c) 2024 - gamma63
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,7 +27,8 @@
  */
 
 
-#include "cpu.h"
+#include <ident_cpu.h>
+#include <memstuff.h>
 
 
 /* Required Declarations */
@@ -48,7 +50,7 @@ int detect_cpu(void) { /* or main() if your trying to port this as an independan
 		do_amd();
 		break;
 		default:
-		print_str_end("Unknown x86 CPU Detected\n", "");
+		kprintf("Unknown x86 CPU Detected\n");
 		break;
 	}
 	return 0;
@@ -112,7 +114,7 @@ char *Intel_Other[] = {
 
 /* Intel-specific information */
 int do_intel(void) {
-	print_str_end("Intel Specific Features:\n", "");
+	kprintf("Intel Specific Features:\n", "");
 	unsigned long eax, ebx, ecx, edx, max_eax, signature, unused;
 	int model, family, type, brand, stepping, reserved;
 	int extended_family = -1;
@@ -126,56 +128,56 @@ int do_intel(void) {
 	signature = eax;
     char typestr[20];
     int_to_string(type,typestr);
-	print_str_end("Type ",typestr);
-	print_str_end(" -"," ");
+	kprintf("Type ",typestr);
+	kprintf(" -"," ");
 	switch(type) {
 		case 0:
-		print_str_end("Original OEM", "");
+		kprintf("Original OEM", "");
 		break;
 		case 1:
-		print_str_end("Overdrive", "");
+		kprintf("Overdrive", "");
 		break;
 		case 2:
-		print_str_end("Dual-capable", "");
+		kprintf("Dual-capable", "");
 		break;
 		case 3:
-		print_str_end("Reserved", "");
+		kprintf("Reserved", "");
 		break;
 	}
-	print_str_end("\n", "");
+	kprintf("\n", "");
     char familystr[20];
     int_to_string(family,familystr);
 
-	print_str_end("Family ",familystr);
-	print_str_end(" - ","");
+	kprintf("Family ",familystr);
+	kprintf(" - ","");
 	switch(family) {
 		case 3:
-		print_str_end("i386", "");
+		kprintf("i386", "");
 		break;
 		case 4:
-		print_str_end("i486", "");
+		kprintf("i486", "");
 		break;
 		case 5:
-		print_str_end("Pentium", "");
+		kprintf("Pentium", "");
 		break;
 		case 6:
-		print_str_end("Pentium Pro", "");
+		kprintf("Pentium Pro", "");
 		break;
 		case 15:
-		print_str_end("Pentium 4", "");
+		kprintf("Pentium 4", "");
 	}
-	print_str_end("\n", "");
+	kprintf("\n", "");
 	if(family == 15) {
 		extended_family = (eax >> 20) & 0xff;
         char extended_family_str[20];
         int_to_string(extended_family,extended_family_str);
-		print_str_end("Extended family ", extended_family_str);
-		print_newline();
+		kprintf("Extended family ", extended_family_str);
+		kputs();
 	}
     char model_str[20];
     int_to_string(model,model_str);
-	print_str_end("Model ",model_str);
-	print_str_end(" - ","");
+	kprintf("Model ",model_str);
+	kprintf(" - ","");
 	switch(family) {
 		case 3:
 		break;
@@ -183,70 +185,70 @@ int do_intel(void) {
 		switch(model) {
 			case 0:
 			case 1:
-			print_str_end("DX", "");
+			kprintf("DX", "");
 			break;
 			case 2:
-			print_str_end("SX", "");
+			kprintf("SX", "");
 			break;
 			case 3:
-			print_str_end("487/DX2", "");
+			kprintf("487/DX2", "");
 			break;
 			case 4:
-			print_str_end("SL", "");
+			kprintf("SL", "");
 			break;
 			case 5:
-			print_str_end("SX2", "");
+			kprintf("SX2", "");
 			break;
 			case 7:
-			print_str_end("Write-back enhanced DX2", "");
+			kprintf("Write-back enhanced DX2", "");
 			break;
 			case 8:
-			print_str_end("DX4", "");
+			kprintf("DX4", "");
 			break;
 		}
 		break;
 		case 5:
 		switch(model) {
 			case 1:
-			print_str_end("60/66", "");
+			kprintf("60/66", "");
 			break;
 			case 2:
-			print_str_end("75-200", "");
+			kprintf("75-200", "");
 			break;
 			case 3:
-			print_str_end("for 486 system", "");
+			kprintf("for 486 system", "");
 			break;
 			case 4:
-			print_str_end("MMX", "");
+			kprintf("MMX", "");
 			break;
 		}
 		break;
 		case 6:
 		switch(model) {
 			case 1:
-			print_str_end("Pentium Pro", "");
+			kprintf("Pentium Pro", "");
 			break;
 			case 3:
-			print_str_end("Pentium II Model 3", "");
+			kprintf("Pentium II Model 3", "");
 			break;
 			case 5:
-			print_str_end("Pentium II Model 5/Xeon/Celeron", "");
+			kprintf("Pentium II Model 5/Xeon/Celeron", "");
 			break;
 			case 6:
-			print_str_end("Celeron", "");
+			kprintf("Celeron", "");
 			break;
 			case 7:
-			print_str_end("Pentium III/Pentium III Xeon - external L2 cache", "");
+			kprintf("Pentium III/Pentium III Xeon - external L2 cache", "");
 			break;
 			case 8:
-			print_str_end("Pentium III/Pentium III Xeon - internal L2 cache", "");
+			kprintf("Pentium III/Pentium III Xeon - internal L2 cache", "");
 			break;
 		}
 		break;
 		case 15:
 		break;
 	}
-	print_str_end("\n", "");
+	kprintf("\n", "");
 	cpuid(0x80000000, max_eax, unused, unused, unused);
 	/* Quok said: If the max extended eax value is high enough to support the processor brand string
 	(values 0x80000002 to 0x80000004), then we'll use that information to return the brand information. 
@@ -254,7 +256,7 @@ int do_intel(void) {
 	According to the Sept. 2006 Intel Arch Software Developer's Guide, if extended eax values are supported, 
 	then all 3 values for the processor brand string are supported, but we'll test just to make sure and be safe. */
 	if(max_eax >= 0x80000004) {
-		print_str_end("Brand: ", "");
+		kprintf("Brand: ", "");
 		if(max_eax >= 0x80000002) {
 			cpuid(0x80000002, eax, ebx, ecx, edx);
 			printregs(eax, ebx, ecx, edx);
@@ -267,17 +269,17 @@ int do_intel(void) {
 			cpuid(0x80000004, eax, ebx, ecx, edx);
 			printregs(eax, ebx, ecx, edx);
 		}
-		print_str_end("\n", "");
+		kprintf("\n", "");
 	} else if(brand > 0) {
         char brand_str[20];
         int_to_string(brand,brand_str);
-		print_str_end("Brand ",brand_str);
-		print_str_end(" - ","");
+		kprintf("Brand ",brand_str);
+		kprintf(" - ","");
 		if(brand < 0x18) {
 			if(signature == 0x000006B1 || signature == 0x00000F13) {
-				print_str(Intel_Other[brand]);
+				kprintf(Intel_Other[brand]);
 			} else {
-				print_str(Intel[brand]);
+				kprintf(Intel[brand]);
 			}
 		} else {
 			print_str("Reserved");
@@ -287,9 +289,9 @@ int do_intel(void) {
     char reserved_str[20];
     int_to_string(stepping,stepping_str);
     int_to_string(reserved,reserved_str);
-	print_str_end("Stepping: ",stepping_str);
-	print_str_end(" Reserved: ",reserved_str);
-	print_newline();
+	kprintf("Stepping: ",stepping_str);
+	kprintf(" Reserved: ",reserved_str);
+	kputs();
 	return 0;
 }
 
@@ -304,12 +306,12 @@ void printregs(int eax, int ebx, int ecx, int edx) {
 		string[j + 8] = ecx >> (8 * j);
 		string[j + 12] = edx >> (8 * j);
 	}
-	print_str(string);
+	kprintf(string);
 }
 
 /* AMD-specific information */
 int do_amd(void) {
-	print_str_end("AMD Specific Features:\n", "");
+	kprintf("AMD Specific Features:\n", "");
 	unsigned long extended, eax, ebx, ecx, edx, unused;
 	int family, model, stepping, reserved;
 	cpuid(1, eax, unused, unused, unused);
@@ -322,11 +324,11 @@ int do_amd(void) {
     int_to_string(family,familystr);
     char modelstr[20];
     int_to_string(model,modelstr);
-	print_str_end("Family: ",familystr);
-	print_str_end(" Model: ",modelstr);
+	kprintf("Family: ",familystr);
+	kprintf(" Model: ",modelstr);
 	switch(family) {
 		case 4:
-		print_str_end("486 Model ", modelstr);
+		kprintf("486 Model ", modelstr);
 		break;
 		case 5:
 		switch(model) {
@@ -336,16 +338,16 @@ int do_amd(void) {
 			case 3:
 			case 6:
 			case 7:
-			print_str_end("K6 Model ", modelstr);
+			kprintf("K6 Model ", modelstr);
 			break;
 			case 8:
-			print_str_end("K6-2 Model 8", "");
+			kprintf("K6-2 Model 8", "");
 			break;
 			case 9:
-			print_str_end("K6-III Model 9", "");
+			kprintf("K6-III Model 9", "");
 			break;
 			default:
-			print_str_end("K5/K6 Model ", modelstr);
+			kprintf("K5/K6 Model ", modelstr);
 			break;
 		}
 		break;
@@ -354,41 +356,41 @@ int do_amd(void) {
 			case 1:
 			case 2:
 			case 4:
-			print_str_end("Athlon Model ", modelstr);
+			kprintf("Athlon Model ", modelstr);
 			break;
 			case 3:
-			print_str_end("Duron Model 3", "");
+			kprintf("Duron Model 3", "");
 			break;
 			case 6:
-			print_str_end("Athlon MP/Mobile Athlon Model 6", "");
+			kprintf("Athlon MP/Mobile Athlon Model 6", "");
 			break;
 			case 7:
-			print_str_end("Mobile Duron Model 7", "");
+			kprintf("Mobile Duron Model 7", "");
 			break;
 			default:
-			print_str_end("Duron/Athlon Model ", modelstr);
+			kprintf("Duron/Athlon Model ", modelstr);
 			break;
 		}
 		break;
 	}
-	print_str_end("]\n", "");
+	kprintf("]\n", "");
 	cpuid(0x80000000, extended, unused, unused, unused);
 	if(extended == 0) {
 		return 0;
 	}
 	if(extended >= 0x80000002) {
 		unsigned int j;
-		print_str_end("Detected Processor Name: ", "");
+		kprintf("Detected Processor Name: ", "");
 		for(j = 0x80000002; j <= 0x80000004; j++) {
 			cpuid(j, eax, ebx, ecx, edx);
 			printregs(eax, ebx, ecx, edx);
 		}
-		print_str_end("\n", "");
+		kprintf("\n", "");
 	}
 	if(extended >= 0x80000007) {
 		cpuid(0x80000007, unused, unused, unused, edx);
 		if(edx & 1) {
-			print_str("Temperature Sensing Diode Detected!");
+			kprintf("Temperature Sensing Diode Detected!");
 		}
 	}
 
@@ -396,9 +398,9 @@ int do_amd(void) {
     char reservedstr[20];
     int_to_string(stepping,steppingstr);
     int_to_string(reserved,reservedstr);
-	print_str_end("Stepping: ",steppingstr);
-	print_str_end(" Reserved: ",reservedstr);
-	print_newline();
+	kprintf("Stepping: ",steppingstr);
+	kprintf(" Reserved: ",reservedstr);
+	kputs();
 
 	return 0;
 }
