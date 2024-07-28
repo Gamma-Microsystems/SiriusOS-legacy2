@@ -1,0 +1,10 @@
+AC_INIT([SiriusOS],[0.01])
+
+AM_INIT_AUTOMAKE
+
+AC_PROG_CC
+
+AC_CONFIG_FILES([Makefile])
+AC_CONFIG_HEADERS([include])
+
+AC_OUTPUT

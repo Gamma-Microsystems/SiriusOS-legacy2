@@ -4,3 +4,17 @@
 dist/
 meta/ports-build/
 */drive
+*/configure
+*/configure.ac~
+*/*.m4
+*/configure~
+*/*.log
+*/*/*.log
+*/compile
+*/include.in
+*/Makefile.in
+*/missing
+*/install-sh
+*/build
+*/include/.in
+*/autom4te.cache
