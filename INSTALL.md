@@ -2,11 +2,7 @@
 
 ```sh
     cd src
-    aclocal
-    autoheader
-    autoupdate
-    autoconf
-    automake
+    sh reconfigure.sh
     mkdir build && cd build
     ../configure
     make
