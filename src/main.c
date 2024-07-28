@@ -1,6 +1,8 @@
-#include <shell.h>
+//#include <shell.h>
+#include <kprintf.h>
 
 void kmain()
 {
-    shmain();
+    kprintf("test123123");
+    //shmain();
 }
