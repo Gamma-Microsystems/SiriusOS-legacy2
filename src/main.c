@@ -1,9 +1,6 @@
-#include <kprintf.h>
-#include <clear.h>
-#include <colors.h>
+#include <shell.h>
 
-void kmain() {
-    clear();
-    color(PRINT_COLOR_YELLOW, PRINT_COLOR_BLACK);
-    kprintf("Hello, World!");
+void kmain()
+{
+    shmain();
 }
