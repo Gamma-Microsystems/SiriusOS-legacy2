@@ -1,52 +1,77 @@
-/* The bootloader will look at this image and start execution at the symbol
-   designated as the entry point. */
+/* Tell the linker that we want an x86_64 ELF64 output file */
+OUTPUT_FORMAT(elf64-x86-64)
+OUTPUT_ARCH(i386:x86-64)
+
+/* We want the symbol _start to be our entry point */
 ENTRY(_start)
 
-/* Tell where the various sections of the object files will be put in the final
-   kernel image. */
+/* Define the program headers we want so the bootloader gives us the right */
+/* MMU permissions; this also allows us to exert more control over the linking */
+/* process. */
+PHDRS
+{
+    headers PT_PHDR PHDRS;
+    text    PT_LOAD FILEHDR PHDRS;
+    rodata  PT_LOAD;
+    data    PT_LOAD;
+    dynamic PT_DYNAMIC;
+}
+
 SECTIONS
 {
-	/* It used to be universally recommended to use 1M as a start offset,
-	   as it was effectively guaranteed to be available under BIOS systems.
-	   However, UEFI has made things more complicated, and experimental data
-	   strongly suggests that 2M is a safer place to load. In 2016, a new
-	   feature was introduced to the multiboot2 spec to inform bootloaders
-	   that a kernel can be loaded anywhere within a range of addresses and
-	   will be able to relocate itself to run from such a loader-selected
-	   address, in order to give the loader freedom in selecting a span of
-	   memory which is verified to be available by the firmware, in order to
-	   work around this issue. This does not use that feature, so 2M was
-	   chosen as a safer option than the traditional 1M. */
-	. = 2M;
+    /* We want to be placed in the topmost 2GiB of the address space, for optimisations */
+    /* and because that is what the Limine spec mandates. */
+    /* Any address in this region will do, but often 0xffffffff80000000 is chosen as */
+    /* that is the beginning of the region. */
+    /* Additionally, leave space for the ELF headers by adding SIZEOF_HEADERS to the */
+    /* base load address. */
+    . = 0xffffffff80000000 + SIZEOF_HEADERS;
 
-	/* First put the multiboot header, as it is required to be put very early
-	   in the image or the bootloader won't recognize the file format.
-	   Next we'll put the .text section. */
-	.text BLOCK(4K) : ALIGN(4K)
-	{
-		*(.multiboot)
-		*(.text)
-	}
+    .text : {
+        *(.text .text.*)
+    } :text
 
-	/* Read-only data. */
-	.rodata BLOCK(4K) : ALIGN(4K)
-	{
-		*(.rodata)
-	}
+    /* Move to the next memory page for .rodata */
+    . = ALIGN(CONSTANT(MAXPAGESIZE));
 
-	/* Read-write data (initialized) */
-	.data BLOCK(4K) : ALIGN(4K)
-	{
-		*(.data)
-	}
+    .rodata : {
+        *(.rodata .rodata.*)
+    } :rodata
 
-	/* Read-write data (uninitialized) and stack */
-	.bss BLOCK(4K) : ALIGN(4K)
-	{
-		*(COMMON)
-		*(.bss)
-	}
+    /* Move to the next memory page for .data */
+    . = ALIGN(CONSTANT(MAXPAGESIZE));
 
-	/* The compiler may produce other sections, by default it will put them in
-	   a segment with the same name. Simply add stuff here as needed. */
+    .data : {
+        *(.data .data.*)
+
+        /* Place the sections that contain the Limine requests as part of the .data */
+        /* output section. */
+        KEEP(*(.requests_start_marker))
+        KEEP(*(.requests))
+        KEEP(*(.requests_end_marker))
+    } :data
+
+    /* Dynamic section for relocations, both in its own PHDR and inside data PHDR. */
+    .dynamic : {
+        *(.dynamic)
+    } :data :dynamic
+
+    /* NOTE: .bss needs to be the last thing mapped to :data, otherwise lots of */
+    /* unnecessary zeros will be written to the binary. */
+    /* If you need, for example, .init_array and .fini_array, those should be placed */
+    /* above this. */
+    .bss : {
+        *(.bss .bss.*)
+        *(COMMON)
+    } :data
+
+    /* Discard .note.* and .eh_frame* since they may cause issues on some hosts. */
+    /* Also discard the program interpreter section since we do not need one. This is */
+    /* more or less equivalent to the --no-dynamic-linker linker flag, except that it */
+    /* works with ld.gold. */
+    /DISCARD/ : {
+        *(.eh_frame*)
+        *(.note .note.*)
+        *(.interp)
+    }
 }

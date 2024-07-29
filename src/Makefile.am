@@ -1,6 +1,6 @@
 bin = sirius.bin
-sources := arch/i686/boot.s sys/main.c
-ARCH = i686
+ARCH = x86_64
+sources := arch/$(ARCH)/header.asm arch/$(ARCH)/main.asm arch/$(ARCH)/main64.asm sys/main.c lib/syscall.c lib/mm/pmm.c lib/mm/vmm.c
 TRIPLET = elf
 CC = $(ARCH)-$(TRIPLET)-gcc
 LD = $(ARCH)-$(TRIPLET)-ld

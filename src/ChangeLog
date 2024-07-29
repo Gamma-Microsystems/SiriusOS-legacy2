@@ -1,0 +1,14 @@
+WARNING CHANGES WHICH ARE DESCRIBED HERE ARE MOSTLY IN "TBD" STATE!
+
+0.01 <PLANNING>
+    - Added syscalls
+    - Added mm
+    - Added syscalls
+    - Added vga
+    - Added GDT
+    - Ported mlibc
+    - Ported pdksh
+
+0.02 <PLANNING>
+    - Added VFS
+    - Added ELF
