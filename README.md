@@ -40,5 +40,5 @@ Sysiphus...
 </a>
 
 ## License
-<img src="img/bsdwatermark.png" align="right" width=200x>
+<img src="img/bsdwatermark.png" align="right" width=200x></img>
 SiriusOS is licensed under BSD-2 Clause license, see the [license](https://raw.githubusercontent.com/Gamma-Microsystems/SiriusOS/main/LICENSE) file for license rights and limitations.
