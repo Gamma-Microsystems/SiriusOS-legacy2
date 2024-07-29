@@ -1,7 +1,7 @@
 #!/bin/bash
 LDVER=2.41
 CCVER=13.2.0
-ARCH=i686
+ARCH=x86_64
 ROOTCMD=sudo
 THREADS=8
 

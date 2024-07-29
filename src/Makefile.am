@@ -1,4 +1,4 @@
-bin = sirius.bin
+bin = sirius
 ARCH = x86_64
 sources := arch/$(ARCH)/header.asm arch/$(ARCH)/main.asm arch/$(ARCH)/main64.asm sys/main.c lib/syscall.c lib/mm/pmm.c lib/mm/vmm.c
 TRIPLET = elf
