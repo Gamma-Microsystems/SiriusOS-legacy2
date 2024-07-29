@@ -38,3 +38,7 @@ Sysiphus...
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=gamma63/SiriusOS&type=Date" />
  </picture>
 </a>
+
+## License
+<img src="img/bsdwatermark.png" align="right" width=200x>
+SiriusOS is licensed under BSD-2 Clause license, see the [license](https://raw.githubusercontent.com/Gamma-Microsystems/SiriusOS/main/LICENSE) file for license rights and limitations.
