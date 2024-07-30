@@ -1,6 +1,6 @@
 <div align="center">
   <img src="https://gamma63.w10.site/progressnet/img/sirius.png">
-  <h1>Simplified, Integrated, Retro-Enhanced, User-friendly Operating System</h1>
+  <h1>Simplified, Integrated, Retro-Enhanced, ~~User-friendly~~ Operating System</h1>
 </div>
 
 <hr>
