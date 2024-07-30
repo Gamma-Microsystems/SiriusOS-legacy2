@@ -1,4 +1,5 @@
 #ifndef DEFS_H
+#define DEFS_H 1
 
 size_t row;
 size_t column;

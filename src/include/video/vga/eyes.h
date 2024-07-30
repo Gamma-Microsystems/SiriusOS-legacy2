@@ -1,4 +1,5 @@
 #ifndef EYES_H
+#define EYES_H 1
 
 #include <video/vga/colors.h>
 #include <video/tty/defs.h>

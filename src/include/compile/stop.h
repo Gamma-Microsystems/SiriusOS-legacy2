@@ -1,4 +1,5 @@
 #ifndef STOP_H
+#define STOP_H 1
 
 /* Check if the compiler thinks you are targeting the wrong operating system. */
 #if defined(__linux__)

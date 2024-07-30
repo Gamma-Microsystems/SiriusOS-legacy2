@@ -1,4 +1,5 @@
 #ifndef TTY_H
+#define TTY_H 1
 
 #include <NotSoLibc/strlen.h>
 #include <video/vga/vga_wh.h>

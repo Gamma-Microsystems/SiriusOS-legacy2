@@ -2,6 +2,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  *
  * Copyright (c) 1998 John Birrell <jb@cimlogic.com.au>.
+ * Copyright (c) 2024 gamma63
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

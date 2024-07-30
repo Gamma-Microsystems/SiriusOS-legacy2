@@ -1,4 +1,5 @@
 #ifndef STRLEN_H
+#define STRLEN_H 1
 
 size_t strlen(const char* str) 
 {

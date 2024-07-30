@@ -1,4 +1,5 @@
 #ifndef COLORS_H
+#define COLORS_H 1
 
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
